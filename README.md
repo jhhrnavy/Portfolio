@@ -1,2 +1,4 @@
-# Portfolio
-Game Portfolio
+# H1, SJH0421 Game Portfolio
+
+### H3, 교육이수
+2022.11~2023.07 SBS아카데미게임학원 강남점 (게임콘텐츠제작)유니티게임프로그래머양성과정
