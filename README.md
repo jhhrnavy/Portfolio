@@ -6,7 +6,7 @@
 
 희망 직군 : Unity3D 게임 클라이언트 개발자
 
-[이메일] : jhhrnavy@gmail.com
+[이메일] : jhhrnavy@gmail.com 
 [blog] : https://ache-coding.tistory.com/
 ### 교육이수
 2022.11~2023.07 SBS아카데미게임학원 강남점 (게임콘텐츠제작)유니티게임프로그래머양성과정
