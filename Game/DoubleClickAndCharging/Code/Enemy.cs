@@ -47,6 +47,9 @@ public class Enemy : MonoBehaviour
         {
             ++_target.GetComponent<PlayerCtrl>().DestroyEnemyCount;
             ShowVfx();
+
+            // 플레이어가 죽여아 할 남은 마리수 감소
+            GameManager.Instance.ChangeLeftEnemyCount(1);
             Destroy(this.gameObject);
         }
     }

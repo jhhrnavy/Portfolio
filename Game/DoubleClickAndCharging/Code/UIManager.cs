@@ -15,14 +15,15 @@ public class UIManager : MonoBehaviour
 
     #endregion
 
-    #region Field
+    #region Reference
 
     [SerializeField,HideInInspector] private GameObject[] _panels;
-    [SerializeField] Text _timeText;
-    [SerializeField] Text _successText;
-    [SerializeField] Slider _bombGage;
-    [SerializeField] Slider _laserGage;
-    [SerializeField] Slider _playerHpGage;
+    [SerializeField] private Text _timeText;
+    [SerializeField] private Text _successText;
+    [SerializeField] private Text _leftEnemyText;
+    [SerializeField] private Slider _bombGage;
+    [SerializeField] private Slider _laserGage;
+    [SerializeField] private Slider _playerHpGage;
 
     #endregion
 
@@ -111,6 +112,11 @@ public class UIManager : MonoBehaviour
     public void UpdatePlayerHpDisplay(int hp)
     {
         _playerHpGage.value = hp;
+    }
+    
+    public void UpdateLeftEnemyCountDisplay(int count)
+    {
+        _leftEnemyText.text = count.ToString();
     }
 
     #endregion

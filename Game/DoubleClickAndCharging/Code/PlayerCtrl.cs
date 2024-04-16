@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerCtrl : MonoBehaviour
 {
@@ -11,7 +12,9 @@ public class PlayerCtrl : MonoBehaviour
     [SerializeField] Laser _laser;
     [SerializeField] Transform _firePos;
     [SerializeField] GameObject _expEffect;
-
+    [SerializeField] ParticleSystem _chargingEffect;
+    [SerializeField] Color _chargingColor;
+    [SerializeField] Color _chargeCompleteColor;
     #endregion
 
     #region Field
@@ -108,7 +111,8 @@ public class PlayerCtrl : MonoBehaviour
 
     private void OnFireBomb()
     {
-        if (Input.GetMouseButtonDown(0))
+        // IsPointerOverGameObject : UI위에서 입력이 들어왔을땐 발사가 되지 않도록 한다
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             if (!_isSingleClick)
             {
@@ -144,18 +148,41 @@ public class PlayerCtrl : MonoBehaviour
 
     private void OnFireLaser()
     {
+        if (Input.GetMouseButtonDown(1) && !_isLongClickLaunch && _fireLaserFlag && !_laser.IsFireLaser)
+        {
+            _totalChargingTimer = 0f;
+
+            // 차징 VFX
+            _chargingEffect.Play();
+
+            // VFX 색상 변경
+            var pfxMain = _chargingEffect.main;
+            pfxMain.startColor = _chargingColor;
+        }
+
         if (Input.GetMouseButton(1) && !_isLongClickLaunch && _fireLaserFlag && !_laser.IsFireLaser)
         {
             _totalChargingTimer += Time.deltaTime;
             Debug.Log("차징중");
 
-            if (_totalChargingTimer >= _longClickTime)
+            if (_totalChargingTimer >= _longClickTime && !_isLongClickLaunch)
+            {
                 _isLongClickLaunch = true; // 차징 완료
+
+                // VFX 색상 변경
+                var pfxMain = _chargingEffect.main;
+                pfxMain.startColor = _chargeCompleteColor;
+            }
         }
 
-        if (Input.GetMouseButtonUp(1) && _isLongClickLaunch)
+        if (Input.GetMouseButtonUp(1) && _fireLaserFlag)
         {
-            FireLaser();
+            // 정상적으로 차징이 완료되면 발사
+            if (_isLongClickLaunch)
+                FireLaser();
+
+            // VFX 끄기
+            _chargingEffect.Stop();
         }
     }
 

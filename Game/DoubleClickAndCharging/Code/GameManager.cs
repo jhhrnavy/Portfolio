@@ -36,37 +36,47 @@ public class GameManager : MonoBehaviour
 
     [Header("[ 적 생성 마리수 ]"), SerializeField]
     private int _spawnNum = 5;
-  
-    public bool _spawnComplete = false;
-    public bool _isPlaying = false;
+
+    private bool _spawnComplete = false;
+    private bool _isPlaying = false;
 
     private bool _isPause = false;
+
+    private int _leftEnemy = 0;
+
     #endregion
 
+    #region Properties
+
+    #endregion
     #region Start And Update
 
     private void Start()
     {
         _timer = _gameTime;
         UIManager.Instance.TimeText = _timer.ToString("F1");
+        PauseGame();
     }
 
     private void Update()
     {
-        // Timer
-        if (_isPlaying)
-        {
-            _timer -= Time.deltaTime;
-            UIManager.Instance.TimeText = _timer.ToString("F1");
-            if (!_spawnComplete)// 적 한번 생성
-            {
-                SpawnEnemy(_spawnNum);
-            }
-        }
-        // --
+        if (!_isPlaying) return;
 
+        // Timer
+        _timer -= Time.deltaTime;
+        UIManager.Instance.TimeText = _timer.ToString("F1");
+
+        // 적 생성
+        if (!_spawnComplete)
+            SpawnEnemy(_spawnNum);
+
+        // 승리 패배 확인
         if (_timer <= 0)
             OnGameFailed("시간 초과");
+
+        if (_leftEnemy == 0)
+            OnGameCleared();
+        //--
 
         // Ese button click Pause Or Continue
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -99,6 +109,7 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         _isPlaying = true;
+        Time.timeScale = 1;
     }
 
     public void RestartGame()
@@ -128,7 +139,7 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    #region Manage Enemy Spawn
+    #region Manage Enemy Spawn And Count
     private void SpawnEnemy(int spawnNum)
     {
         for (int i = 0; i < spawnNum; i++)
@@ -142,6 +153,9 @@ public class GameManager : MonoBehaviour
             transform.LookAt(dir);
         }
         _spawnComplete = true;
+
+        // Set left enemy
+        SetLeftEnemyCount(spawnNum);
     }
 
     private void EnemyClear()
@@ -150,5 +164,20 @@ public class GameManager : MonoBehaviour
         Destroy(enemy);
     }
 
+    // 플레이어
+    private void SetLeftEnemyCount(int count)
+    {
+        _leftEnemy = count;
+        UIManager.Instance.UpdateLeftEnemyCountDisplay(_leftEnemy);
+    }
+
+    // When enemy destroy
+    public void ChangeLeftEnemyCount(int amount)
+    {
+        _leftEnemy -= amount;
+        UIManager.Instance.UpdateLeftEnemyCountDisplay(_leftEnemy);
+    }
+
     #endregion
+
 }
