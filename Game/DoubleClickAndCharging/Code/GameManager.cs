@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
   
     public bool _spawnComplete = false;
     public bool _isPlaying = false;
+
+    private bool _isPause = false;
     #endregion
 
     #region Start And Update
@@ -65,6 +67,19 @@ public class GameManager : MonoBehaviour
 
         if (_timer <= 0)
             OnGameFailed("시간 초과");
+
+        // Ese button click Pause Or Continue
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            _isPause = !_isPause;
+
+            if (_isPause)
+                PauseGame();
+            else
+                ContinueGame();
+
+            UIManager.Instance.ShowPasuePanel(_isPause);
+        }
     }
 
     #endregion
@@ -103,6 +118,14 @@ public class GameManager : MonoBehaviour
         EnemyClear();
     }
 
+    public void QuitGame()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
     #endregion
 
     #region Manage Enemy Spawn

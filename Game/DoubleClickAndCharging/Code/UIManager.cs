@@ -17,10 +17,9 @@ public class UIManager : MonoBehaviour
 
     #region Field
 
-    [SerializeField] GameObject _StartPanel;
+    [SerializeField,HideInInspector] private GameObject[] _panels;
     [SerializeField] Text _timeText;
     [SerializeField] Text _successText;
-    [SerializeField] GameObject _endPanel;
     [SerializeField] Slider _bombGage;
     [SerializeField] Slider _laserGage;
     [SerializeField] Slider _playerHpGage;
@@ -35,21 +34,26 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        _StartPanel.SetActive(true);
+        _panels[(int)PanelType.Start].SetActive(true);
     }
 
     #region Button Methods
 
     public void OnClickToStart()
     {
-        _StartPanel.SetActive(false);
+        _panels[(int)PanelType.Start].SetActive(false);
         GameManager.Instance.StartGame();
     }
 
     public void OnClickToReStart()
     {
-        _endPanel.SetActive(false);
+        _panels[(int)PanelType.End].SetActive(false);
         GameManager.Instance.RestartGame();
+    }
+
+    public void OnClickToQuitGame()
+    {
+        GameManager.Instance.QuitGame();
     }
 
     #endregion
@@ -81,8 +85,13 @@ public class UIManager : MonoBehaviour
 
     public void ShowPanelGameOver(string text)
     {
-        _endPanel.SetActive(true);
+        _panels[(int)PanelType.End].SetActive(true);
         _successText.text = text;
+    }
+
+    public void ShowPasuePanel(bool active)
+    {
+        _panels[(int)PanelType.Pause].SetActive(active);
     }
 
     #endregion
@@ -105,4 +114,12 @@ public class UIManager : MonoBehaviour
     }
 
     #endregion
+}
+
+public enum PanelType
+{
+    Start,
+    Pause,
+    End,
+    GamePlay,
 }
