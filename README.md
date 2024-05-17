@@ -12,7 +12,7 @@
 ## :pushpin: Projects
 ### 1. [비행기 맞추기](Game/DoubleClickAndCharging)
 >Top View Shooting Game(개인 프로젝트)
->>플랫폼 : Windows
+>플랫폼 : Windows
 >개발 기간: 2023.01.17 ~ 2023.01.18    
 >    
 >기술 스택
