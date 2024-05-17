@@ -1,7 +1,7 @@
 # SJH0421 Game Portfolio
 ## EndlessWar
->학창시절 자주 했었던 플레시 게임 끝없는 전쟁을 참조해서 게임의 로직을 구현해 봤습니다.
->
+>학창시절 자주 했었던 플레시 게임 [끝없는 전쟁](https://vidkidz.tistory.com/2017)을 참조해서 게임의 로직을 구현해 봤습니다.
+
 ---------
 
 [플레이 해보기](Game/EndlessWar/Build/EndlessWar.zip)
@@ -11,192 +11,55 @@
 ![DoubleClick](https://github.com/jhhrnavy/Portfolio/assets/59547352/4f4ce2ed-fd48-4b1b-bb2c-717dc7200907)
 
 ### 조작키 
-#### 이동  
-  A D : 좌우 회전 
-#### 공격  
-  마우스 좌버튼 클릭 : 작은 폭탄 발사  
-  마우스 좌버튼 더블클릭 : 대형 폭탄 발사  
-  마우스 우버튼 Hold down(꾹누르기) 2초 : 레이저 발사  
+  WASD : 상하좌우 이동
+  마우스 움직임 : 플레이어의 조준 방향 변경
+  Num1,2,3,4 : 차례대로 주무기, 보조무기, 근접무기, 투척무기
+  마우스 좌버튼 클릭 : 공격(발사)
+  G : 무기 버리기 ( 주무기, 보조무기 가능 )
 ### 승리 조건
-제한시간 내에 모든 적 우주선 파괴
+최대한 빠르게 목적지(THIS WAY) 도달
 
-### 주요 기능
-#### 마우스 우클릭 차징 레이저 발사(Time.time, Particle System)
+### 주요 기능 및 활용 기술
+#### [Input System](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.8/manual/index.html)
+![124124124](https://github.com/jhhrnavy/Portfolio/assets/59547352/830c8882-50a5-4d63-983d-b2e0e6ef51fc)
+>Unity의 기존의 Input Manager가 아닌 새로운 Input 관리 기능인 Input System을 활용해서 게임의 Input을 관리해주었다.
+> 느낀점
+>간단한 게임을 제작할때엔 기존의 Input Manager가 익숙함과 편의성에서는 약간 우세하다고 느꼈지만  
+>다양한 입력장치를 활용하거나 멀티 플랫폼 게임에서의 입력처리면에선 훨씬 나은 편의성을 제공할것 같다.  
+#### 무기 시스템
 ```swift
-    private void OnFireLaser()
-    {
-        if (Input.GetMouseButtonDown(1) && !_isLongClickLaunch && _fireLaserFlag && !_laser.IsFireLaser)
-        {
-            _totalChargingTimer = 0f;
-
-            // 차징 VFX
-            _chargingEffect.Play();
-
-            // VFX 색상 변경
-            var pfxMain = _chargingEffect.main;
-            pfxMain.startColor = _chargingColor;
-        }
-
-        if (Input.GetMouseButton(1) && !_isLongClickLaunch && _fireLaserFlag && !_laser.IsFireLaser)
-        {
-            _totalChargingTimer += Time.deltaTime;
-            Debug.Log("차징중");
-
-            if (_totalChargingTimer >= _longClickTime && !_isLongClickLaunch)
-            {
-                _isLongClickLaunch = true; // 차징 완료
-
-                // VFX 색상 변경
-                var pfxMain = _chargingEffect.main;
-                pfxMain.startColor = _chargeCompleteColor;
-            }
-        }
-
-        if (Input.GetMouseButtonUp(1) && _fireLaserFlag)
-        {
-            // 정상적으로 차징이 완료되면 발사
-            if (_isLongClickLaunch)
-                FireLaser();
-
-            // VFX 끄기
-            _chargingEffect.Stop();
-        }
-    }
-```
-```swift
-    private void FireLaser()
-    {
-        _laser.Shot(_firePos);
-
-        _totalChargingTimer = 0;
-        _laserCoolTimer = _laserCoolTime;
-        UIManager.Instance.UpdateLaserGageDisplay(_laserCoolTimer);
-
-        _fireLaserFlag = false;
-        _isLongClickLaunch = false;
-    }
-```
-```swift
-using System.Collections;
 using UnityEngine;
 
-public class Laser : MonoBehaviour
+public abstract class NewWeapon : MonoBehaviour
 {
-    #region Fields
+    public string name;
+    public WeaponType weaponType;
+    public WeaponStyle weaponStyle;
 
-    [SerializeField] private int damage = 3;
-    [SerializeField] private float delay = 0.5f;
-    private LineRenderer _laserLineRenderer;
-    private Collider _coll;
-    private bool _isFireLaser;
-    private float _hitDelayTimer = 0f;
+    public Vector3 localPosition; // 무기 장착 위치
+    public Vector3 localRotation;
+    public Vector3 localScale;
 
-    #endregion
-
-    #region Properties
-    public bool IsFireLaser { get => _isFireLaser; }
-
-    #endregion
-
-    private void Awake()
-    {
-        _laserLineRenderer = GetComponent<LineRenderer>();
-        _laserLineRenderer.positionCount = 2;
-        _laserLineRenderer.enabled = false;
-        _coll = GetComponent<Collider>();
-        _coll.enabled = false;
-        _isFireLaser = false;
-    }
-
-    public void Shot(Transform firePos)
-    {
-        StartCoroutine(ShotEffect(firePos));
-    }
-
-    private IEnumerator ShotEffect(Transform firePos)
-    {
-        _laserLineRenderer.SetPosition(0, firePos.position);
-        _laserLineRenderer.SetPosition(1, firePos.position + firePos.forward * 100f);
-        _laserLineRenderer.enabled = true;
-        _coll.enabled = true;
-        _isFireLaser = true;
-        yield return new WaitForSeconds(2f);
-        _laserLineRenderer.enabled = false;
-        _coll.enabled = false;
-        _isFireLaser = false;
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("Enemy"))
-        {
-            _hitDelayTimer -= Time.deltaTime;
-
-            if (_hitDelayTimer <= 0)
-            {
-                other.GetComponent<Enemy>().GetDamaged(damage);
-                _hitDelayTimer = delay;
-            }
-        }
-    }
+    [Header("Anim IK"), Space] // Animation IK 적용 Transform
+    public Transform trsfRHandMount;
+    public Transform trsfLHandMount;
 }
-```
 
-#### 마우스 좌 더블클릭 범위폭탄 발사
-```swift
-    private void OnFireBomb()
-    {
-        // IsPointerOverGameObject : UI위에서 입력이 들어왔을땐 발사가 되지 않도록 한다
-        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
-        {
-            if (!_isSingleClick)
-            {
-                _timer = Time.time;
-                _isSingleClick = true;
-            }
-            else
-            {
-                // 마우스 좌버튼 더블클릭시 대형 폭탄 발사
-                if ((Time.time - _timer) < _doubleClickTime)
-                {
-                    if (_fireBombFlag)
-                    {
-                        FireBomb(1);
-                        _bombCoolTimer = _bombCoolTime;
-                        UIManager.Instance.UpdateBombGageDisplay(_bombCoolTimer);
-                        _fireBombFlag = false;
-                    }
-                }
-                // 단일 클릭시 소형 폭탄 발사
-                else FireBomb(0);
+public enum WeaponType // 무기 종류
+{
+    Melee,
+    Pistol,
+    AR,
+    Bomb
+}
 
-                _isSingleClick = false;
-            }
-        }
+public enum WeaponStyle
+{
+    None = -1,
+    Primary,    // 주무기
+    Secondary,  // 보조무기
+    Melee,      // 근접무기
+    Throwing    // 투척무기
+}
 
-        if (_isSingleClick && ((Time.time - _timer) > _doubleClickTime))
-        {
-            FireBomb(0);
-            _isSingleClick = false;
-        }
-    }
-
-```
-```swift
-    private void FireBomb(int weaponIdx)
-    {
-        var weapon = Instantiate(_weaponPrefs[weaponIdx], _firePos.position, _firePos.rotation);
-        Rigidbody _weaponRb = weapon.GetComponent<Rigidbody>();
-
-        switch (weaponIdx)
-        {
-            case 0:
-                _weaponRb.AddForce(weapon.transform.forward * 100f, ForceMode.Impulse);
-                Destroy(weapon, 3f);
-                break;
-            case 1:
-                _weaponRb.AddForce(weapon.transform.forward * 50f, ForceMode.Impulse);
-                break;
-        }
-    }
 ```
