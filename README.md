@@ -1,10 +1,3 @@
-## Juho Shin
-Game Client Programmer    
-Gangdong-gu,Seoul,South Korea, +82    
-[Email] : jhhrnavy@gmail.com   
-[blog] : https://ache-coding.tistory.com/    
-</br>
-
 ## :pushpin: Intro
 게임 콘텐츠 구현과 깔끔한 게임 구조 설계에 열정을 가진 유니티 클라이언트 개발자입니다.    
 새로운 지식을 탐구하고 활용하는 것을 즐기며, Unity 엔진을 활용하여 사용자에게 최상의 경험을 제공하고자 합니다.    
