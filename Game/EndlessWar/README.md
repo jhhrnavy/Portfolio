@@ -1,11 +1,12 @@
 # SJH0421 Game Portfolio
-## Double Click And Charging
+## EndlessWar
+>학창시절 자주 했었던 플레시 게임 끝없는 전쟁을 참조해서 게임의 로직을 구현해 봤습니다.
+>
+---------
 
-[플레이 해보기](Game/DoubleClickAndCharging/Build/DoubleClickCharging.zip)  
+[플레이 해보기](Game/EndlessWar/Build/EndlessWar.zip)
 
-|타이틀|개발환경|제작기간|플랫폼|키워드|비고|
-|:-:|:-:|:-:|:-:|:-:|:-:|
-|비행기 맞추기|Unity3D|1day|Windows|Top View, Double Click, Charging||  
+
 
 ![DoubleClick](https://github.com/jhhrnavy/Portfolio/assets/59547352/4f4ce2ed-fd48-4b1b-bb2c-717dc7200907)
 
