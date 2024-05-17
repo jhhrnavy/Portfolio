@@ -11,22 +11,22 @@
 
 ## :pushpin: Projects
 ### 1. [비행기 맞추기](Game/DoubleClickAndCharging)
->Top View Shooting Game(개인 프로젝트)
->플랫폼 : Windows
+>Top View Shooting Game(개인 프로젝트)  
+>플랫폼 : Windows  
 >개발 기간: 2023.01.17 ~ 2023.01.18    
 >    
->기술 스택
->C#,Unity3D
+>기술 스택  
+>C#,Unity3D  
 
 -----------------
 
 ### 2. [끝없는 전쟁](Game/EndlessWar)
->Top View Shooting Game, 플레시게임 '끝없는 전쟁' 참조(개인 프로젝트)
->플랫폼 : Windows
->개발 기간: 2023.12.17 ~ 2024.04.09    
+>Top View Shooting Game, 플레시게임 '끝없는 전쟁' 참조(개인 프로젝트)  
+>플랫폼 : Windows  
+>개발 기간: 2023.12.17 ~ 2024.04.09  
 >    
->기술 스택
->C#, Unity3D
+>기술 스택  
+>C#, Unity3D  
 
 -----------------
 
