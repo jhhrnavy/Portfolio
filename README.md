@@ -20,7 +20,7 @@
 
 -----------------
 
->### 2. [끝없는 전쟁](Game/EndlessWar)
+### 2. [끝없는 전쟁](Game/EndlessWar)
 >Top View Shooting Game, 플레시게임 '끝없는 전쟁' 참조(개인 프로젝트)
 >플랫폼 : Windows
 >개발 기간: 2023.12.17 ~ 2024.04.09    
@@ -30,7 +30,7 @@
 
 -----------------
 
->### 3. [멀티플레이 FPS](Game/PhotonFPSGame)
+### 3. [멀티플레이 FPS](Game/PhotonFPSGame)
 >Multiplay FPS Game(개인 프로젝트)
 >플랫폼 : Windows
 >개발 기간: 2024.04.30 ~ 2024.05.14    
