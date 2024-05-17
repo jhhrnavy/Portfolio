@@ -1,4 +1,8 @@
-# 신주호 Portfolio
+## Juho Shin
+Game Client Programmer    
+Gangdong-gu,Seoul,South Korea, +82    
+[Email] : jhhrnavy@gmail.com   
+[blog] : https://ache-coding.tistory.com/    
 </br>
 
 ## :pushpin: Intro
@@ -8,15 +12,15 @@
 질문과 피드백은 언제나 환영합니다.
 </br>
 
-## :pushpin: Contact
-[Email] : jhhrnavy@gmail.com   
-[blog] : https://ache-coding.tistory.com/    
-
 ## :pushpin: Traning
 2022.11~2023.07 SBS아카데미게임학원 강남점 (게임콘텐츠제작)유니티게임프로그래머양성과정
 
 ## :pushpin: Projects
-
+### 1. [비행기 맞추기](Game/DoubleClickAndCharging)
+>Top View 슈팅 게임(개인 프로젝트)
+>개발 기간: 2023.01.17 ~ 2023.01.18
+>
+>기술 
 |타이틀|개발환경|제작기간|플랫폼|키워드|비고|
 |:-:|:-:|:-:|:-:|:-:|:-:|
 |[비행기 맞추기](Game/DoubleClickAndCharging)|Unity3D|1day|Windows|Top View, Double Click, Charging||
