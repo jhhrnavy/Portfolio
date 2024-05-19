@@ -45,9 +45,13 @@
 [NewSword.cs](Game/EndlessWar/Code/NewWeaponSystem/NewSword.cs) : 근접 무기  
 [Bomb.cs](Game/EndlessWar/Code/Weapons/Bomb.cs) : 투척 무기 (수류탄)  
 
+#### 장비
+>
+
 #### 전투 시스템
 >원거리 공격(발사),근거리 공격, 던지기를 추상클래스인 PlayerCombat을 상속 받아 각각 구현  
->다형성을 활용하여 장착한 무기에 따라 다른 공격이 호출  
+>다형성을 활용하여 장착한 무기에 따라 다른 공격이 호출
+  
 [BoomShooter.cs](Game/EndlessWar/Code/Weapons/BombShooter.cs) : 투척 공격  
 [PlayerMeleeAttack.cs](Game/EndlessWar/Code/Units/Player/Combat/PlayerMeleeAttack.cs) : 근접 공격   
 [PlayerShooting.cs](Game/EndlessWar/Code/Units/Player/Combat/PlayerShooting.cs) : 원거리 공격  
