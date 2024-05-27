@@ -1,7 +1,7 @@
 # SJH0421 Game Portfolio
 ## Double Click And Charging
 
-[플레이 해보기](Game/DoubleClickAndCharging/Build/DoubleClickCharging.zip)  
+[플레이 해보기](Game/PhotonFPSGame/Build/MultiplayFPS.zip)
 
 |타이틀|개발환경|제작기간|플랫폼|키워드|비고|
 |:-:|:-:|:-:|:-:|:-:|:-:|
